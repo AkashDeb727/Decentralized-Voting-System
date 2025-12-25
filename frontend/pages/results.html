@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Election Results - Decentralized Vote</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#135bec",
+                        "background-dark": "#0b0e14",
+                        "card-dark": "#151b26",
+                        "border-dark": "#2a3441",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        "2xl": "1rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="font-display bg-background-dark text-gray-100 min-h-screen flex flex-col antialiased">
+    <header
+        class="sticky top-0 z-50 bg-white dark:bg-card-dark border-b border-[#f0f2f4] dark:border-[#2a3441] px-4 sm:px-10 py-3">
+        <div class="flex items-center justify-between whitespace-nowrap max-w-[1200px] mx-auto w-full">
+            <!-- Left: Logo + Title -->
+            <div class="flex items-center gap-4">
+                <div class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <span class="material-symbols-outlined text-2xl">how_to_vote</span>
+                </div>
+                <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block">
+                    DecentraVote Results
+                </h2>
+            </div>
+
+            <!-- Right: Wallet info + Avatar -->
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:flex flex-col items-end mr-2">
+                    <span class="text-xs font-medium text-[#616f89] dark:text-[#9ca3af]">
+                        Connected
+                    </span>
+                    <span id="voterAddress" class="text-sm font-bold font-mono">
+                        Not connected
+                    </span>
+                </div>
+
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary"
+                    style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEmSD0wpyapeShBx771ZtwB9yx-79YLKZuRSjNCb_rUN22QaXZS4W_PU6Y0Stxgg6g4J33xK8UFNnPWT71YmGaBNtjOvrp3O9oLCrMUGKvo7emXsQS0zGKB8ZiC5HtBA3froKjlNdhXNYXTew9GpDD8tlqZ8h8fi3VFpozplUvW_4_SXWdLoDmRLGbyKQbwyN5oE2dTkExZjCXMlsHlwEIQhOlF52457UBh6sg557ExxWWh-ji_eNiqJwubS8WnC9ix-RMKozZ6lFJ');
+            "></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 px-4 py-8 md:px-10 lg:px-40">
+        <div class="mx-auto flex max-w-[960px] flex-col gap-6">
+            <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="inline-flex items-center gap-1 rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-1 text-xs font-bold text-red-700 dark:text-red-400">
+                            <span class="material-symbols-outlined text-[14px]">lock</span>
+                            ENDED
+                        </span>
+                        <span id="resultsEndTime" class="text-sm text-[#616f89] dark:text-gray-400">
+                            —
+                        </span>
+                    </div>
+                    <h1
+                        class="text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em] text-[#111318] dark:text-white">
+                        <span id="resultsElectionName">—</span>
+                    </h1>
+                    <p class="text-base text-[#616f89] dark:text-gray-400">
+                        Official results verified on the Ethereum blockchain.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a id="viewContractLink"
+                        class="flex items-center gap-1 text-sm font-medium text-primary hover:underline" target="_blank"
+                        rel="noopener noreferrer">
+                        View Smart Contract
+                        <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                    </a>
+
+                </div>
+            </div>
+            <div
+                class="mt-4 rounded-xl border border-[#f0f2f4] dark:border-[#2a3441] bg-surface-light dark:bg-surface-dark p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)] @container">
+                <div class="flex flex-col gap-6 md:flex-row md:items-center">
+                    <div class="relative shrink-0 self-start md:self-auto">
+                        <div
+                            class="h-32 w-32 md:h-40 md:w-40 overflow-hidden rounded-full border-4 border-primary/10 shadow-lg">
+                            <div id="winnerInitials" class="h-full w-full flex items-center justify-center
+                            bg-primary/10 text-primary
+                            text-4xl md:text-5xl font-black uppercase">
+                                --
+                            </div>
+
+                        </div>
+                        <div
+                            class="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white shadow-md whitespace-nowrap">
+                            👑 Elected
+                        </div>
+                    </div>
+                    <div class="flex flex-1 flex-col gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#111318] dark:text-white">
+                                <span id="winnerName">—</span>
+                            </h3>
+                        </div>
+                        <div
+                            class="grid grid-cols-2 gap-4 rounded-lg bg-background-light dark:bg-background-dark p-4 sm:grid-cols-3">
+                            <div>
+                                <p
+                                    class="text-xs font-medium uppercase tracking-wider text-[#616f89] dark:text-gray-500">
+                                    Total Votes
+                                </p>
+                                <p id="winnerVotes" class="mt-1 text-xl font-black text-primary">
+                                    -
+                                </p>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-xs font-medium uppercase tracking-wider text-[#616f89] dark:text-gray-500">
+                                    Percentage
+                                </p>
+                                <p id="winnerPercentage" class="mt-1 text-xl font-black text-[#111318] dark:text-white">
+                                    -
+                                </p>
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <p
+                                    class="text-xs font-medium uppercase tracking-wider text-[#616f89] dark:text-gray-500">
+                                    Blocks Verified
+                                </p>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <span
+                                        class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+                                    <span class="text-sm font-bold text-[#111318] dark:text-white">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div
+                    class="rounded-lg bg-surface-light dark:bg-surface-dark p-5 shadow-[0_2px_4px_rgba(0,0,0,0.02)] border border-[#f0f2f4] dark:border-[#2a3441]">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex size-10 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600">
+                            <span class="material-symbols-outlined">group</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-[#616f89] dark:text-gray-400">
+                                Total Turnout
+                            </p>
+                            <p id="totalTurnout" class="text-lg font-bold text-[#111318] dark:text-white">
+                                -
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="rounded-lg bg-surface-light dark:bg-surface-dark p-5 shadow-[0_2px_4px_rgba(0,0,0,0.02)] border border-[#f0f2f4] dark:border-[#2a3441]">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex size-10 items-center justify-center rounded-full bg-purple-50 dark:bg-purple-900/20 text-purple-600">
+                            <span class="material-symbols-outlined">ballot</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-[#616f89] dark:text-gray-400">
+                                Total Ballots
+                            </p>
+                            <p id="totalBallots" class="text-lg font-bold text-[#111318] dark:text-white">
+                                -
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="rounded-lg bg-surface-light dark:bg-surface-dark p-5 shadow-[0_2px_4px_rgba(0,0,0,0.02)] border border-[#f0f2f4] dark:border-[#2a3441]">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex size-10 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20 text-green-600">
+                            <span class="material-symbols-outlined">encrypted</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-sm text-[#616f89] dark:text-gray-400">
+                                Security Check
+                            </p>
+                            <p class="text-lg font-bold text-[#111318] dark:text-white">
+                                Passed
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-[#f0f2f4] dark:border-[#2a3441] pt-6 text-center">
+                <p class="text-sm text-[#616f89] dark:text-gray-500">
+                    This election was conducted using a decentralized voting system powered by blockchain technology.
+                    Results are transparent and tamper-proof.
+                </p>
+            </div>
+        </div>
+    </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script type="module" src="../js/results.js"></script>
+
+</body>
+
+</html>

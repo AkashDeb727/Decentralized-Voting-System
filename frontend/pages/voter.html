@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Voter Page - Decentralized Vote</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#135bec",
+              "background-dark": "#0b0e14",
+              "card-dark": "#151b26",
+              "border-dark": "#2a3441",
+            },
+            fontFamily: {
+              display: ["Public Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="font-display bg-background-dark text-gray-100 min-h-screen flex flex-col antialiased"
+  >
+    <header
+      class="sticky top-0 z-50 bg-white dark:bg-card-dark border-b border-[#f0f2f4] dark:border-[#2a3441] px-4 sm:px-10 py-3"
+    >
+      <div
+        class="flex items-center justify-between whitespace-nowrap max-w-[1200px] mx-auto w-full"
+      >
+        <!-- Left: Logo + Title -->
+        <div class="flex items-center gap-4">
+          <div
+            class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary"
+          >
+            <span class="material-symbols-outlined text-2xl">how_to_vote</span>
+          </div>
+          <h2
+            class="text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block"
+          >
+            DecentraVote Voter
+          </h2>
+        </div>
+
+        <!-- Right: Wallet info + Avatar -->
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex flex-col items-end mr-2">
+            <span
+              class="text-xs font-medium text-[#616f89] dark:text-[#9ca3af]"
+            >
+              Connected
+            </span>
+            <span id="voterAddress" class="text-sm font-bold font-mono">
+              Not connected
+            </span>
+          </div>
+
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEmSD0wpyapeShBx771ZtwB9yx-79YLKZuRSjNCb_rUN22QaXZS4W_PU6Y0Stxgg6g4J33xK8UFNnPWT71YmGaBNtjOvrp3O9oLCrMUGKvo7emXsQS0zGKB8ZiC5HtBA3froKjlNdhXNYXTew9GpDD8tlqZ8h8fi3VFpozplUvW_4_SXWdLoDmRLGbyKQbwyN5oE2dTkExZjCXMlsHlwEIQhOlF52457UBh6sg557ExxWWh-ji_eNiqJwubS8WnC9ix-RMKozZ6lFJ');
+            "
+          ></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="mb-10">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span
+              id="electionStatusBadge"
+              class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold ring-1 ring-inset"
+            >
+              Loading...
+            </span>
+
+            <span
+              class="text-xs font-medium text-slate-500 flex items-center gap-1"
+            >
+              <span class="material-symbols-outlined text-sm">public</span>
+              Public Blockchain
+            </span>
+          </div>
+          <h2
+            id="electionTitle"
+            class="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight"
+          >
+            Loading election name...
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+            <div
+              class="bg-surface-dark border border-slate-800 rounded-lg p-4 flex items-center gap-3"
+            >
+              <div class="p-2 bg-slate-800 rounded-md text-slate-400">
+                <span class="material-symbols-outlined">calendar_clock</span>
+              </div>
+              <div>
+                <p
+                  class="text-[10px] uppercase tracking-wider text-slate-500 font-bold"
+                >
+                  Start Time
+                </p>
+                <p id="startTime" class="text-sm font-medium text-white">—</p>
+              </div>
+            </div>
+            <div
+              class="bg-surface-dark border border-slate-800 rounded-lg p-4 flex items-center gap-3"
+            >
+              <div class="p-2 bg-slate-800 rounded-md text-slate-400">
+                <span class="material-symbols-outlined">event_busy</span>
+              </div>
+              <div>
+                <p
+                  class="text-[10px] uppercase tracking-wider text-slate-500 font-bold"
+                >
+                  End Time
+                </p>
+                <p id="endTime" class="text-sm font-medium text-white">—</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-32">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">groups</span>
+            Candidates List
+          </h3>
+        </div>
+        <div id="candidatesContainer" class="space-y-4">
+          <!-- Empty state (shown until JS adds candidates) -->
+          <div
+            id="noCandidates"
+            class="flex flex-col items-center justify-center gap-3 py-12 bg-card-dark border border-border-dark rounded-xl text-center"
+          >
+            <span class="material-symbols-outlined text-4xl text-slate-500">
+              groups
+            </span>
+            <p class="text-sm text-slate-400 font-medium">
+              No candidates added yet
+            </p>
+            <p class="text-xs text-slate-500">
+              Please wait for the election admin to add candidates
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div
+      class="fixed bottom-0 left-0 right-0 bg-white dark:bg-card-dark border-t border-[#f0f2f4] dark:border-border-dark shadow-[0_-4px_20px_-1px_rgba(0,0,0,0.3)] z-40 p-4"
+    >
+      <div
+        class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <div
+          id="selectedCandidateInfo"
+          class="flex items-center gap-2 bg-slate-900/50 py-1.5 px-3 rounded-full border border-border-dark text-sm"
+        >
+          <span class="material-symbols-outlined text-lg text-primary">
+            check_circle
+          </span>
+          <span class="text-slate-400">
+            Selected:
+            <span id="selectedCandidateName" class="font-bold text-slate-300">
+              None
+            </span>
+          </span>
+        </div>
+
+        <div class="flex w-full sm:w-auto gap-3">
+          <!-- Confirm Vote -->
+          <button
+            id="confirmVoteBtn"
+            class="flex-1 sm:flex-none px-8 py-3 rounded-lg bg-primary text-white font-bold shadow-lg shadow-primary/20 transition-all transform active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled
+          >
+            <span>Confirm Vote</span>
+            <span class="material-symbols-outlined text-lg">fingerprint</span>
+          </button>
+
+          <!-- View Results (same style, green theme) -->
+          <button
+            id="viewResultsBtn"
+            class="flex-1 sm:flex-none px-8 py-3 rounded-lg bg-green-600 text-white font-bold shadow-lg shadow-green-600/30 transition-all transform active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled
+          >
+            <span>View Results</span>
+            <span class="material-symbols-outlined text-lg">leaderboard</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script type="module" src="../js/voter.js"></script>
+  </body>
+</html>

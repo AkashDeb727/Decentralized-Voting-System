@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DecentraVote Admin</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#135bec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#0b0e14",
+              "card-dark": "#151b26",
+              "border-dark": "#2a3441",
+            },
+            fontFamily: {
+              display: ["Public Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-gray-100 overflow-x-hidden min-h-screen flex flex-col"
+  >
+    <header
+      class="sticky top-0 z-50 bg-white dark:bg-card-dark border-b border-[#f0f2f4] dark:border-[#2a3441] px-4 sm:px-10 py-3"
+    >
+      <div
+        class="flex items-center justify-between whitespace-nowrap max-w-[1200px] mx-auto w-full"
+      >
+        <div class="flex items-center gap-4">
+          <div
+            class="size-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary"
+          >
+            <span class="material-symbols-outlined text-2xl">how_to_vote</span>
+          </div>
+          <h2
+            class="text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block"
+          >
+            DecentraVote Admin
+          </h2>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex flex-col items-end mr-2">
+            <span class="text-xs font-medium text-[#616f89] dark:text-[#9ca3af]"
+              >Connected</span
+            >
+            <span id="adminAddress" class="text-sm font-bold font-mono"
+              >Not connected</span
+            >
+          </div>
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary"
+            data-alt="Abstract colorful gradient avatar for user profile"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEmSD0wpyapeShBx771ZtwB9yx-79YLKZuRSjNCb_rUN22QaXZS4W_PU6Y0Stxgg6g4J33xK8UFNnPWT71YmGaBNtjOvrp3O9oLCrMUGKvo7emXsQS0zGKB8ZiC5HtBA3froKjlNdhXNYXTew9GpDD8tlqZ8h8fi3VFpozplUvW_4_SXWdLoDmRLGbyKQbwyN5oE2dTkExZjCXMlsHlwEIQhOlF52457UBh6sg557ExxWWh-ji_eNiqJwubS8WnC9ix-RMKozZ6lFJ');
+            "
+          ></div>
+        </div>
+      </div>
+    </header>
+    <main class="flex-1 flex flex-col items-center py-8 px-4 sm:px-10">
+      <div class="w-full max-w-[1200px] flex flex-col gap-8">
+        <div class="flex flex-wrap justify-between items-end gap-4">
+          <div class="flex flex-col gap-2">
+            <h1
+              class="text-3xl sm:text-4xl font-black leading-tight tracking-[-0.033em]"
+            >
+              Election Administration
+            </h1>
+            <p
+              class="text-[#616f89] dark:text-[#9ca3af] text-base font-normal max-w-2xl"
+            >
+              Configure settings, manage candidate rosters, and control the
+              election lifecycle on the blockchain.
+            </p>
+          </div>
+          <div
+            class="flex items-center gap-2 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full border border-green-200 dark:border-green-800"
+          >
+            <span class="relative flex h-3 w-3">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+              ></span>
+              <span
+                class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+              ></span>
+            </span>
+            <span class="text-sm font-bold uppercase tracking-wide"
+              >System Online</span
+            >
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div
+            class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-card-dark border border-[#dbdfe6] dark:border-[#2a3441] shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div
+                class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-primary"
+              >
+                <span class="material-symbols-outlined">pending_actions</span>
+              </div>
+              <p
+                class="text-[#616f89] dark:text-[#9ca3af] text-sm font-bold uppercase tracking-wider"
+              >
+                Status
+              </p>
+            </div>
+            <p id="electionStatus" class="text-2xl font-bold leading-tight">
+              Loading...
+            </p>
+          </div>
+          <div
+            class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-card-dark border border-[#dbdfe6] dark:border-[#2a3441] shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div
+                class="p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-purple-600 dark:text-purple-400"
+              >
+                <span class="material-symbols-outlined">group</span>
+              </div>
+              <p
+                class="text-[#616f89] dark:text-[#9ca3af] text-sm font-bold uppercase tracking-wider"
+              >
+                Total Candidates
+              </p>
+            </div>
+            <p id="candidateCount" class="text-2xl font-bold leading-tight">
+              0
+            </p>
+          </div>
+          <div
+            class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-card-dark border border-[#dbdfe6] dark:border-[#2a3441] shadow-sm"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div
+                class="p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg text-orange-600 dark:text-orange-400"
+              >
+                <span class="material-symbols-outlined">ballot</span>
+              </div>
+              <p
+                class="text-[#616f89] dark:text-[#9ca3af] text-sm font-bold uppercase tracking-wider"
+              >
+                Votes Cast
+              </p>
+            </div>
+            <p id="votesCast" class="text-2xl font-bold leading-tight">0</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          <div class="lg:col-span-2 flex flex-col gap-6">
+            <div
+              class="bg-white dark:bg-card-dark rounded-xl border border-[#dbdfe6] dark:border-[#2a3441] shadow-sm overflow-hidden"
+            >
+              <div
+                class="px-6 py-4 border-b border-[#f0f2f4] dark:border-[#2a3441] flex items-center justify-between"
+              >
+                <h3 class="text-lg font-bold">Election Details</h3>
+              </div>
+              <div class="p-6">
+                <label class="flex flex-col gap-2">
+                  <span class="text-sm font-bold text-[#111318] dark:text-white"
+                    >Election Name</span
+                  >
+                  <input
+                    id="electionName"
+                    class="w-full h-12 px-4 rounded-lg border border-[#dbdfe6] dark:border-[#384252] bg-white dark:bg-[#0b0e14] text-[#111318] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-[#9ca3af]"
+                    placeholder="e.g., College Student Council 2025"
+                  />
+                </label>
+              </div>
+            </div>
+            <div
+              class="bg-white dark:bg-card-dark rounded-xl border border-[#dbdfe6] dark:border-[#2a3441] shadow-sm overflow-hidden flex flex-col h-full"
+            >
+              <div
+                class="px-6 py-4 border-b border-[#f0f2f4] dark:border-[#2a3441] flex items-center justify-between bg-white dark:bg-card-dark"
+              >
+                <h3 class="text-lg font-bold">Candidate Management</h3>
+              </div>
+              <div class="p-6 flex flex-col gap-6">
+                <div class="flex gap-3 items-end">
+                  <label class="flex-1 flex flex-col gap-2">
+                    <span
+                      class="text-sm font-bold text-[#111318] dark:text-white"
+                      >Add New Candidate</span
+                    >
+                    <input
+                      id="candidateName"
+                      class="w-full h-12 px-4 rounded-lg border border-[#dbdfe6] dark:border-[#384252] bg-white dark:bg-[#0b0e14] text-[#111318] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-[#9ca3af]"
+                      placeholder="Enter candidate full name"
+                    />
+                  </label>
+                  <button
+                    id="addCandidateBtn"
+                    class="h-12 px-6 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2 shadow-lg shadow-primary/20"
+                  >
+                    <span class="material-symbols-outlined">add</span>
+                    <span>Add</span>
+                  </button>
+                </div>
+                <div class="flex flex-col gap-3">
+                  <p
+                    class="text-xs font-bold text-[#616f89] dark:text-[#9ca3af] uppercase tracking-wider mb-1"
+                  >
+                    Registered Candidates
+                  </p>
+                </div>
+                <div class="mb-32">
+                  <div id="candidatesContainer" class="space-y-4">
+
+                    <div
+                      id="noCandidates"
+                      class="flex flex-col items-center justify-center gap-3 py-12 bg-card-dark border border-border-dark rounded-xl text-center"
+                    >
+                      <span
+                        class="material-symbols-outlined text-4xl text-slate-500"
+                      >
+                        groups
+                      </span>
+                      <p class="text-sm text-slate-400 font-medium">
+                        No candidates added yet
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6">
+            <div
+              class="bg-white dark:bg-card-dark rounded-xl border border-[#dbdfe6] dark:border-[#2a3441] shadow-lg sticky top-24"
+            >
+              <div
+                class="bg-gradient-to-r from-primary to-blue-600 p-6 rounded-t-xl"
+              >
+                <h3
+                  class="text-white text-lg font-bold flex items-center gap-2"
+                >
+                  <span class="material-symbols-outlined">rocket_launch</span>
+                  Control Center
+                </h3>
+                <p class="text-blue-100 text-sm mt-1 opacity-90">
+                  Manage the election state.
+                </p>
+              </div>
+              <div class="p-6 flex flex-col gap-6">
+                <div
+                  class="p-4 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 flex gap-3"
+                >
+                  <span
+                    class="material-symbols-outlined text-amber-600 dark:text-amber-500 shrink-0"
+                    >warning</span
+                  >
+                  <div class="flex flex-col gap-1">
+                    <p
+                      class="text-sm font-bold text-amber-800 dark:text-amber-400"
+                    >
+                      Immutability Warning
+                    </p>
+                    <p
+                      class="text-xs text-amber-700 dark:text-amber-300/80 leading-relaxed"
+                    >
+                      Once the election is started, the candidate list will be
+                      locked on the blockchain and cannot be modified.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-3">
+                  <button
+                    id="startElectionBtn"
+                    class="w-full py-4 px-6 bg-primary hover:bg-primary/90 text-white rounded-lg font-bold shadow-md shadow-primary/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2"
+                  >
+                    <span class="material-symbols-outlined">play_arrow</span>
+                    Start Election
+                  </button>
+                  <button
+                    id="endElectionBtn"
+                    class="w-full py-4 px-6 bg-white dark:bg-transparent border-2 border-red-200 dark:border-red-900/50 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg font-bold transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
+                    disabled=""
+                  >
+                    <span class="material-symbols-outlined">stop_circle</span>
+                    End Election
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-gradient-to-br from-[#0b0e14] to-[#1e293b] rounded-xl p-6 text-white shadow-md border border-[#2a3441] relative overflow-hidden"
+            >
+              <div
+                class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/5 rounded-full blur-xl"
+              ></div>
+              <h4 class="font-bold text-base mb-2 relative z-10">
+                Admin Guide
+              </h4>
+              <ul class="text-sm space-y-3 text-gray-300 relative z-10">
+                <li class="flex gap-2 items-start">
+                  <span
+                    class="bg-white/10 rounded-full p-0.5 mt-0.5 text-[10px] w-4 h-4 flex items-center justify-center"
+                    >1</span
+                  >
+                  <span>Verify all candidate details before deployment.</span>
+                </li>
+                <li class="flex gap-2 items-start">
+                  <span
+                    class="bg-white/10 rounded-full p-0.5 mt-0.5 text-[10px] w-4 h-4 flex items-center justify-center"
+                    >2</span
+                  >
+                  <span>Ensure your wallet has sufficient ETH for gas.</span>
+                </li>
+                <li class="flex gap-2 items-start">
+                  <span
+                    class="bg-white/10 rounded-full p-0.5 mt-0.5 text-[10px] w-4 h-4 flex items-center justify-center"
+                    >3</span
+                  >
+                  <span>Ending an election is irreversible.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script type="module" src="../js/admin.js"></script>
+  </body>
+</html>

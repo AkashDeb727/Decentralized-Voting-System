@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DecentraVote - Login</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#135bec",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              display: ["Public Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #334155;
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white transition-colors duration-200"
+  >
+    <div
+      class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden"
+    >
+      <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] dark:border-b-gray-800 px-6 lg:px-10 py-4 bg-white dark:bg-background-dark z-20"
+      >
+        <div class="flex items-center gap-4 text-[#111318] dark:text-white">
+          <div class="size-8 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined" style="font-size: 32px"
+              >how_to_vote</span
+            >
+          </div>
+          <h2
+            class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]"
+          >
+            DecentraVote
+          </h2>
+        </div>
+      </header>
+      <main class="flex-1 flex flex-col lg:flex-row">
+        <div
+          class="lg:w-1/2 relative min-h-[300px] lg:min-h-full bg-gray-100 dark:bg-gray-900 overflow-hidden"
+        >
+          <div
+            class="absolute inset-0 w-full h-full bg-center bg-cover"
+            data-alt="Abstract 3d blue geometric blocks representing blockchain network and digital security"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRSvDg15wBEej_RxEi2PXafI6P6mIAiMMdWMGiT7j1EUKN6YqOAd0NZ0slaYhybg1xFbqEBwnQNxyAs9-b94zq8inCEgvb2YraC53ph76OJ7QNovty9u7PO93XMXv_vNxI4CZLnQU-JOi0jbTtpOiXuMA__glv0ofCIFYcNK198XqaZ0KK2fWeceoEf20zyLbYUa3LIjeLW4scSk-YkLPtFHH_mHOxiaQtdLlMwI593WDdSllxxXuEHNCysjFCe3X5l08whlU7j7sk');
+            "
+          ></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent mix-blend-multiply"
+          ></div>
+          <div class="absolute bottom-0 left-0 p-8 lg:p-12 text-white z-10">
+            <blockquote
+              class="text-xl lg:text-2xl font-bold leading-snug max-w-lg mb-4 drop-shadow-md"
+            >
+              "The future of democracy is transparent, verifiable, and secure."
+            </blockquote>
+          </div>
+        </div>
+        <div
+          class="lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-16 xl:p-24 bg-background-light dark:bg-background-dark"
+        >
+          <div class="w-full max-w-[480px] flex flex-col gap-6">
+            <div class="flex flex-col gap-2 text-center lg:text-left">
+              <div
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto lg:mx-0 mb-2 text-primary"
+              >
+                <span class="material-symbols-outlined">encrypted</span>
+              </div>
+              <h1
+                class="text-[#111318] dark:text-white tracking-tight text-3xl lg:text-4xl font-bold leading-tight"
+              >
+                Secure Decentralized Voting
+              </h1>
+              <p
+                class="text-gray-600 dark:text-gray-400 text-base font-normal leading-relaxed"
+              >
+                Connect your Ethereum wallet to verify your identity and access
+                active ballots securely.
+              </p>
+            </div>
+            <div class="flex flex-col gap-4 mt-4">
+              <button
+                id="connectWallet"
+                class="group flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-5 bg-primary hover:bg-blue-700 text-white gap-3 transition-all shadow-md hover:shadow-lg"
+              >
+                <span class="material-symbols-outlined text-[24px]"
+                  >account_balance_wallet</span
+                >
+                <span
+                  class="text-base font-bold leading-normal tracking-[0.015em]"
+                  >Connect MetaMask</span
+                >
+              </button>
+            </div>
+            <div
+              class="mt-8 flex flex-col items-center lg:items-start gap-4 text-center lg:text-left"
+            >
+              <p class="text-xs text-gray-400 dark:text-gray-500">
+                © DecentraVote. Powered by Ethereum.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script type="module" src="../js/login.js"></script>
+  </body>
+</html>
